@@ -14,8 +14,4 @@ public class MyBean {
     public void setData(String data) {
         myData = data;
     }
-
-    public String getRandomJoke() {
-        return Joker.getRandomJoke();
-    }
 }
