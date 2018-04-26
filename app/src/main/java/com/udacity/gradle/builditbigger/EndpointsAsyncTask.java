@@ -47,13 +47,20 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
         }
     }
 
+    private TaskCompleteListener mTaskCompleteListener;
+
+    public interface TaskCompleteListener {
+        void onTaskComplete(String result);
+    }
+
+    public EndpointsAsyncTask(TaskCompleteListener listener) {
+        mTaskCompleteListener = listener;
+    }
+
     @Override
     protected void onPostExecute(String result) {
-        if (result == null)
-            return;
-
-        Intent intent = new Intent(context, DisplayJokesActivity.class);
-        intent.putExtra(DisplayJokesActivity.EXTRAS_JOKE, result);
-        context.startActivity(intent);
+        if (result != null) {
+            mTaskCompleteListener.onTaskComplete(result);
+        }
     }
 }
